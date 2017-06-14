@@ -12,26 +12,21 @@
                         <li class="product col-sm-6 col-md-3">
                             <div class="product-container">
                                 <div class="product-thumb">
-                                    <a href="@Url.Action("HienThiChiTietSanPham","SanPhams", new { id = item.MaSanPham})*">
+                                    <a href="@Url.Action("HienThiChiTietSanPham","SanPhams", new { id = item.MaSanPham})">
                                         @foreach (var h in item.HinhAnhs)
                                         {
                                             <img src="~/Images/@h.TenHinh" width="180" height="320" />
                                             break;
                                         }
                                     </a>
-                                    <a style="text-decoration:none;" title="Xem nhanh" class="quick-view" href="">Xem nhanh</a>
+                                    <span class="quick-view" >Xem chi tiết</span>
                                 </div>
                                 <div class="product-info">
                                     <div class="product-name">
-                                        <a style="text-decoration:none;" href="detail2.html">@item.TenSanPham</a>
+                                        <a style="text-decoration:none;" href="@Url.Action("HienThiChiTietSanPham","SanPhams", new { id = item.MaSanPham})">@item.TenSanPham</a>
                                     </div>
                                     <div class="box-price">
-                                        <span class="price">@item.GiaSanPham vnđ</span>
-                                    </div>
-                                    <div class="button-control">
-                                        <a style="text-decoration:none;" data-toggle="tooltip" data-placement="top" title="Thêm vào so sánh" class="compare" href="#">Compare</a>
-                                        <a style="text-decoration:none;" title="Thêm vào giỏ" class="add-to-cart" href="#">Thêm vào giỏ</a>
-                                        <a style="text-decoration:none;" data-toggle="tooltip" data-placement="top" title="Thêm vào danh sách yêu thích" class="wishlist" href="#">wishlist</a>
+                                        <span class="price">@item.GiaSanPham.GetValueOrDefault(0).ToString("N0") VND</span>
                                     </div>
                                 </div>
                             </div>

@@ -39,27 +39,28 @@ namespace WineShop.Controllers
         [ChildActionOnly]
         public ActionResult MenuLoai()
         {
-            List<LoaiSanPham> lst = db.LoaiSanPhams.ToList<LoaiSanPham>();
+            List<LoaiSanPham> lst = db.LoaiSanPhams.Where(s => s.BiXoa == 0).ToList<LoaiSanPham>();
             return PartialView(lst);
         }
 
         [ChildActionOnly]
         public ActionResult MenuHang()
         {
-            List<HangSanXuat> lst = db.HangSanXuats.ToList<HangSanXuat>();
+            List<HangSanXuat> lst = db.HangSanXuats.Where(s => s.BiXoa == 0).ToList<HangSanXuat>();
             return PartialView(lst);
         }
 
 
         public ActionResult HienThiSanPhamTheoLoai(int id, int? page)
         {
-
-            Session["a"] = "TheoLoai";
-
+            if (Session["BiKhoa"] != null)
+            {
+                return RedirectToAction("LogOffs", "Account");
+            }
             ViewBag.TenAction = "HienThiSanPhamTheoLoai";
 
             int pageNumber = (page ?? 1);
-            int pageSize = 12;
+            int pageSize = 4;
 
             var lst = db.SanPhams.Where(s => s.BiXoa == 0 && s.MaLoaiSanPham == id).OrderBy(s=>s.MaSanPham);
             LoaiSanPham loai = db.LoaiSanPhams.Single(l => l.MaLoaiSanPham == id);
@@ -70,19 +71,24 @@ namespace WineShop.Controllers
 
         public ActionResult HienThiSanPhamTheoHang(int id, int? page)
         {
-
-            Session["a"] = "TheoHang";
-
+            if (Session["BiKhoa"] != null)
+            {
+                return RedirectToAction("LogOffs", "Account");
+            }
             var lst = db.SanPhams.Where(s => s.BiXoa == 0 && s.MaHangSanXuat == id).OrderBy(s=>s.MaSanPham);
             HangSanXuat hang = db.HangSanXuats.Single(l => l.MaHangSanXuat == id);
             ViewBag.TieuDe = "Danh sách sản phẩm theo Hãng " + hang.TenHangSanXuat;
             int pageNumber = (page ?? 1);
-            int pageSize = 12;
+            int pageSize = 4;
             return View("DanhSachSanPham", lst.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult HienThiChiTietSanPham(int id)
         {
+            if (Session["BiKhoa"] != null)
+            {
+                return RedirectToAction("LogOffs", "Account");
+            }
             //List<SanPham> lst = db.SanPhams.Where(s => s.BiXoa == 0 && s.MaSanPham == id).ToList<SanPham>();
             SanPham hang = db.SanPhams.Single(s=> s.BiXoa == 0 && s.MaSanPham == id);
             hang.SoLuocXem = hang.SoLuocXem + 1;
@@ -90,14 +96,37 @@ namespace WineShop.Controllers
             return View("ChiTiets", hang);
         }
 
+        public ActionResult TimKiemSP(int? page)
+        {
+            if (Session["BiKhoa"] != null)
+            {
+                return RedirectToAction("LogOffs", "Account");
+            }
+            ViewBag.TieuDe = "Sản Phẩm Tìm Được";
+            int pageNumber = (page ?? 1);
+            int pageSize = 4;
+            var sp = Session["DSTimKiemSanPham"] as IOrderedQueryable<SanPham>;
+            if(sp == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View("DanhSachSanPham", sp.ToPagedList(pageNumber, pageSize));
+        }
+
         [HttpPost]
         public ActionResult TimKiemSP(string txtTimkiem, int? MaLoaiSanPham, int? MaHangSanXuat, int? txtGia1, int? txtGia2, int? page)
         {
+            if (Session["BiKhoa"] != null)
+            {
+                return RedirectToAction("LogOffs", "Account");
+            }
             ViewBag.TieuDe = "Sản Phẩm Tìm Được";
             var sp = db.SanPhams.Where(s => s.BiXoa == 0).OrderBy(s => s.MaSanPham);
+            int soLuong = sp.Count();
             int pageNumber = (page ?? 1);
-            int pageSize = 12;
+            int pageSize = 4;
 
+           
             if (txtTimkiem != null)
             {
                 sp = sp.Where(s => s.TenSanPham.Contains(txtTimkiem)).OrderBy(s => s.MaSanPham);
@@ -119,8 +148,13 @@ namespace WineShop.Controllers
             {
                 sp = sp.Where(s => s.GiaSanPham <= txtGia2.Value).OrderBy(s => s.MaSanPham);
             }
-
+            if(sp.Count() == soLuong)
+            {                
+                return RedirectToAction("Index","Home");
+            }
+            Session["DSTimKiemSanPham"] = sp;
             return View("DanhSachSanPham", sp.ToPagedList(pageNumber, pageSize));
-        }      
+        }
+
     }
 }

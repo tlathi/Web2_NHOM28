@@ -1,30 +1,3 @@
-﻿@model IEnumerable<WineShop.Models.SanPham>
-
-
-<div class="clear"></div>
-<h2>@ViewBag.TieuDe</h2>
-<div class="clear"></div>
-<div>
-    @foreach (var item in Model)
-    {
-        <div class="grid_3">
-            <a href="@Url.Action("HienThiChiTietSanPham", "SanPhams", new { id = @item.MaSanPham })">
-                <div class="block2 maxheight">
-                    @foreach (var h in item.HinhAnhs)
-                    {
-                        <img src="~/Images/@h.TenHinh" height="210" />
-                        break;
-                    }
-
-                    <div class="pad">
-                        <div class="alright"><div class="btn">@item.GiaSanPham $</div></div>
-                    </div>
-                    <div class="title">@item.TenSanPham</div>
-                </div>
-            </a>
-        </div>
-    }
-</div>
-<div class="clear"></div>
+﻿
 
 

@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 
 namespace WineShop.Controllers
 {
+    [Authorize]
     public class GioHangController : Controller
     {
         ShopRuouDBEntities db = new ShopRuouDBEntities();
@@ -18,7 +19,7 @@ namespace WineShop.Controllers
         // GET: GioHang
         public ActionResult Index()
         {
-
+            Session["a"] = "GioHang";
             var cart = Session[CartSession];
 
             var list = new List<CartItem>();
@@ -29,13 +30,13 @@ namespace WineShop.Controllers
 
             return View(list);
         }
-        [HttpPost]
+
+        [HttpGet]
         public ActionResult Nhap(int? id, int? Soluong)
         {
-
-            if (Soluong != null && Soluong > 0 && Soluong < db.SanPhams.Single(s => s.MaSanPham == id && s.BiXoa == 0).SoLuongTon)
+            if (Soluong != null && Soluong > 0 && Soluong <= db.SanPhams.Single(s => s.MaSanPham == id && s.BiXoa == 0).SoLuongTon)
             {
-                return RedirectToAction("AddItem", "GioHang", new { id = id , sl = Soluong});
+                return RedirectToAction("AddItem", "GioHang", new { id = id, sl = Soluong });
             }
             return RedirectToAction("HienThiChiTietSanPham", "SanPhams", new { id = id });
         }
@@ -52,7 +53,16 @@ namespace WineShop.Controllers
                     {
                         if (item.sanpham.MaSanPham == id)
                         {
-                            item.soluong += sl;
+                            int bientam = 0;
+                            bientam = item.soluong + sl;
+                            if (item.sanpham.SoLuongTon >= bientam)
+                            {
+                                item.soluong += sl;
+                            }
+                            else
+                            {
+                                return RedirectToAction("HienThiChiTietSanPham", "SanPhams", new { id = id });
+                            }
                         }
                     }
                 }
@@ -164,13 +174,16 @@ namespace WineShop.Controllers
             var cart = (List<CartItem>)Session[CartSession];
             int slct = 0;
             string Mactdh = null;
+            int k = 1;
             foreach (var item in cart)
             {
                 ct = new ChiTietDonDatHang();
                 slct = db.ChiTietDonDatHangs.Count();
-                Mactdh = "CTDH" + slct + 1;
+                slct += k;
+                k++;
+                //k = slct + 1 + k;
+                Mactdh = "CTDH" + slct;
                 ct.MaChiTietDonDatHang = Mactdh;
-                ct.MaDonDatHang = ddh.MaDonDatHang;
                 ct.SoLuong = item.soluong;
                 ct.GiaBan = item.sanpham.GiaSanPham * ct.SoLuong;
                 ct.MaSanPham = item.sanpham.MaSanPham;

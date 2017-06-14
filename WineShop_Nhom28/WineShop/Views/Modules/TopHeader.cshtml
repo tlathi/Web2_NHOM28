@@ -2,93 +2,70 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 col-lg-3 logo">
-                <a href="@Url.Action("Index","Home")"><img alt="Kute Shop" src="~/assets/data/option8/logo.png" /></a>
+                <a href="@Url.Action("Index","Home")"><img alt="Kute Shop" src="~/assets/data/option4/Logo.png" /></a>
             </div>
             <div class="col-sm-10 col-md-7 col-lg-9 main-menu-wapper">
                 <div id="main-menu" class="main-menu">
                     <nav class="navbar navbar-default">
-                        <div class="container-fluid">                            
-                            <div class="#">
-                                <ul id="nav">
-                                    @if (Session["a"] == null && Session["a"].ToString() == "TrangChu")
-                                    {
-                                        <li class="current">
-                                            @Html.ActionLink("Trang chủ", "Index", "Home")
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="current">
-                                            @Html.ActionLink("Trang chủ", "Index", "Home")
-                                        </li>
-                                    }
+                        <div class="container-fluid">
+                            <div id='cssmenu'>
+                                <ul>
                                     <li>
-                                        <a href="#">Loại Rượu</a>
+                                        @Html.ActionLink("Trang chủ", "Index", "Home")
+                                    </li>
+                                    <li class='active has-sub'>
+                                        <a href='#'><span>Loại Rượu</span></a>
                                         <ul>
-                                            @if (Session["a"] != null && Session["a"].ToString() == "TheoLoai")
-                                            {
-                                                <li>
+                                            <li class='has-sub'>
+                                                <a href="#">
                                                     @{ Html.RenderAction("MenuLoai", "SanPhams");}
-                                                </li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li>
-                                                                @{ Html.RenderAction("MenuLoai", "SanPhams");}
-                                                            </li>
-                                                                    }
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a href="#">Hãng Rượu</a>
+                                    <li class='active has-sub'>
+                                        <a href='#'><span>Hãng Rượu</span></a>
                                         <ul>
-                                            @if (Session["a"] != null && Session["a"].ToString() == "TheoHang")
-                                            {
-                                                <li>
+                                            <li class='has-sub'>
+                                                <a href="#">
                                                     @{ Html.RenderAction("MenuHang", "SanPhams");}
-                                                </li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li>
-                                                                @{ Html.RenderAction("MenuHang", "SanPhams");}
-
-                                                            </li>
-                                                                    }
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
+
                                     <li>
-                                        @if (Session["a"] != null && Session["a"].ToString() == "ThongTin")
+                                        @Html.ActionLink("Thông tin", "HienThiThongTin", "Home")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Liên hệ", "HienThiLienHe", "Home")
+                                    </li>
+                                    <li>
+                                        @if (Session["a"] != null && Session["a"].ToString() == "GioHang")
                                         {
-                                        <li class="current">@Html.ActionLink("Thông tin", "HienThiThongTin", "Home")</li>
+                                        <li class="current">
+                                            @if (Session["DangNhap"] != null)
+                                            {
+                                                <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+                                            }
+                                        </li>
                                         }
                                         else
                                         {
-                                            <li>@Html.ActionLink("Thông tin", "HienThiThongTin", "Home")</li>
+                                            <li>
+                                                @if (Session["DangNhap"] != null)
+                                                {
+                                                    <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+                                                }
+                                            </li>
                                         }
-                                    </li>
-                                    <li>
-                                        @if (Session["a"] != null && Session["a"].ToString() == "LienHe")
-                                        {
-                                        <li class="current">@Html.ActionLink("Liên hệ", "HienThiLienHe", "Home")</li>
-                                        }
-                                        else
-                                        {
-                                            <li>@Html.ActionLink("Liên hệ", "HienThiLienHe", "Home")</li>
-                                        }
-                                    </li>
-                                    <li>
-                                        @if (Session["DangNhap"] != null)
-                                        {
-                                            <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
-                                        }
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

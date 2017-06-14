@@ -42,26 +42,23 @@ namespace WineShop.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult XemNhieu()
+        public PartialViewResult XemNhieu()
         {
             List<SanPham> lstSanPham = db.SanPhams.Where(s => s.BiXoa == 0).OrderByDescending(s => s.SoLuocXem).Take(4).ToList<SanPham>();
-            ViewBag.GroupTitle = "Sản Phẩm hot";
             return PartialView("TabProductSP", lstSanPham);
         }
 
         [ChildActionOnly]
-        public ActionResult BanChayNhat()
+        public PartialViewResult BanChayNhat()
         {
             List<SanPham> lstSanPham = db.SanPhams.Where(s => s.BiXoa == 0).OrderByDescending(s => s.SoLuongBan).Take(4).ToList<SanPham>();
-            ViewBag.GroupTitle = "Sản Phẩm hot";
             return PartialView("TabProductSP", lstSanPham);
         }
 
         [ChildActionOnly]
-        public ActionResult MoiNhat()
+        public PartialViewResult MoiNhat()
         {
             List<SanPham> lstSanPham = db.SanPhams.Where(s => s.BiXoa == 0).OrderByDescending(s => s.NgayNhap).Take(4).ToList<SanPham>();
-            ViewBag.GroupTitle = "Sản Phẩm hot";
             return PartialView("TabProductSP", lstSanPham);
         }
 

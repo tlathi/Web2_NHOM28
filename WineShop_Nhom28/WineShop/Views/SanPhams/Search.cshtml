@@ -3,31 +3,27 @@
 <div class="m-b-5 input-prepend inside search-form no-boarder">
     <div class="container main-header">
         <div id="nav">
-            <div>
+            <div class="form-style-5">
                 <table>
                     <tr>
                         <td>
                             @using (Html.BeginForm("TimKiemSP", "SanPhams"))
                             {
+                                    <form>
+                                        <fieldset>
+                                            <input class="no-border" name="txtTimkiem" style="background-color: #e5e5e5; height: 32px; margin-right: 25px;" placeholder="Nhập tên sản phẩm"/>
 
-                                <form>
-                                    Sản phẩm:
-                                    <input class="no-border" name="txtTimkiem" style="background-color: #e5e5e5;" />
+                                            @Html.DropDownList("MaLoaiSanPham", (IEnumerable<SelectListItem>)ViewBag.LSPs, "Chọn loại sản phẩm")
 
-                                    Loại sản phẩm:
-                                    @Html.DropDownList("MaLoaiSanPham", (IEnumerable<SelectListItem>)ViewBag.LSPs, "Chọn loại sản phẩm")
+                                            @Html.DropDownList("MaHangSanXuat", (IEnumerable<SelectListItem>)ViewBag.HSXs, "Chọn nhà sản xuất")
 
-                                    Hãng sản xuất:
-                                    @Html.DropDownList("MaHangSanXuat", (IEnumerable<SelectListItem>)ViewBag.HSXs, "Chọn nhà sản xuất")
+                                            <input class="no-border" name="txtGia1" style="background-color: #e5e5e5; width: 100px; height: 32px; margin-right: 25px;  margin-left: 25px;" placeholder="Giá"/>
 
-                                    Giá:
-                                    <input class="no-border" name="txtGia1" style="background-color: #e5e5e5; width: 50px;" />
+                                            <input class="no-border" name="txtGia2" style="background-color: #e5e5e5; width: 100px; height: 32px; margin-right: 25px;" placeholder="Giá"/>
 
-                                    ->
-                                    <input class="no-border" name="txtGia2" style="background-color: #e5e5e5; width: 50px;" />
-
-                                    <button type="submit" style="background-color:#e5e5e5; height:25px; width: 50px;"><img src="~/images/search.png" /></button>
-                                </form>
+                                            <button type="submit" style="background-color:#e5e5e5; height:32px; width: 30px; margin-right: 15px;"><img src="~/Images/icon-serach7.png" /></button>
+                                        </fieldset>
+                                    </form>
                             }
                         </td>
 
@@ -40,7 +36,7 @@
                                 {
                                     @Html.AntiForgeryToken()
                                 <td>
-                                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    @Html.ActionLink(User.Identity.GetUserName(), "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                                 </td>
                                 <td>
                                     <a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a>
