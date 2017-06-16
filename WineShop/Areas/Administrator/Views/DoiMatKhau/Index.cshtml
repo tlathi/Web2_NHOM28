@@ -1,0 +1,49 @@
+﻿@model WineShop.Models.ChangePasswordViewModel
+@{
+    ViewBag.Title = "Đổi mật khẩu";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<CENTER><h1>ĐỔI MẬT KHẨU</h1></CENTER>
+<br />
+<div style="background-color:white;">
+    <center>
+        @using (Html.BeginForm("Index", "DoiMatKhau", null, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div style="height:50px;"></div>
+            <div style="background-color:white; width:400px; height:300px;">
+                <center>
+                    <table class="table table-hover no-more-tables">
+                        <tr>
+
+                            <th>Mật khẩu cũ: </th>
+                            <td>
+                                @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Mật khẩu mới: </th>
+                            <td>
+                                @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Xác nhận: </th>
+                            <td>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                             </td>
+                        </tr>
+
+                    </table>
+                    <input type="submit" value="Cập nhật mật khẩu" />
+                </center>
+            </div>
+        }
+    </center>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

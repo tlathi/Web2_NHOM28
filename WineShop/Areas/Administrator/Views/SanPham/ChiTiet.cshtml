@@ -1,0 +1,134 @@
+﻿@model WineShop.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <p>TRANG CHI TIẾT SẢN PHẨM</p>
+    </li>
+    <li>
+        <b>Xem</b>
+    </li>
+</ul>
+<div class="page-title">
+    <a href="@Url.Action("Index", "SanPham")">
+        <i class="icon-custom-left"></i>
+    </a>
+    <h3>Trở về - <span class="semi-bold">TRANG SẢN PHẨM</span></h3>
+</div>
+
+<div class="col-md-6">
+    <div class="grid simple vertical green">
+        <div class="grid-title no-border">
+            <h4>Sản <span class="semi-bold">Phẩm</span></h4>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div>
+                    <h3>@Html.DisplayFor(model => model.TenSanPham)<span class="semi-bold"></span></h3>
+                    <div class="color-bands green"></div>
+                    <div class="color-bands purple"></div>
+                    <div class="color-bands red"></div>
+                    <div class="color-bands blue"></div>
+                    <br>
+                    <div>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Giá:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Model.GiaSanPham.GetValueOrDefault(0).ToString("N0") vnđ</span></h3>
+                            </dd>
+
+                            <dt>
+                                Ngày nhập
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.NgayNhap)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Số lượng:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.SoLuongTon)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Số lượng bán được:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.SoLuongBan)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Lược xem:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.SoLuocXem)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Mô tả:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.MoTa)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Loại sản phẩm:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.LoaiSanPham.TenLoaiSanPham)</span></h3>
+                            </dd>
+
+                            <dt>
+                                Hãng sản xuất:
+                            </dt>
+
+                            <dd>
+                                <h3><span class="semi-bold">@Html.DisplayFor(model => model.HangSanXuat.TenHangSanXuat)</span></h3>
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="grid simple horizontal ">
+        <div class="clearfix"></div>
+
+        @foreach (var image in Model.HinhAnhs)
+            {
+                if (image.BiXoa == false)
+                {
+                <img src="@Url.Content("~/Images/" + image.TenHinh)" width="500" height="500" />
+                    <div>
+
+                    </div>
+
+            }
+        }
+    </div>
+</div>
+
+
+

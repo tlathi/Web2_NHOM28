@@ -1,0 +1,134 @@
+﻿@model WineShop.Models.DonDatHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn đặt hãng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <p>TRANG CHI TIẾT ĐƠN ĐẶT HÀNG</p>
+    </li>
+    <li>
+        <b>Xem</b>
+    </li>
+</ul>
+<div class="page-title">
+    <a href="@Url.Action("Index", "DonDatHang")">
+        <i class="icon-custom-left"></i>
+    </a>
+    <h3>Trở về - <span class="semi-bold">TRANG DANH SÁCH</span></h3>
+</div>
+
+<div class="col-md-6">
+    <div class="grid simple vertical green">
+        <div class="grid-title no-border">
+            <h4>bảng <span class="semi-bold"></span></h4>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div>
+                    <h3>đơn đặt hàng <span class="semi-bold">@Html.DisplayFor(model => model.MaDonDatHang)</span></h3>
+                    <div class="color-bands green"></div>
+                    <div class="color-bands purple"></div>
+                    <div class="color-bands red"></div>
+                    <div class="color-bands blue"></div>
+                    <br>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NgayLap)
+                        </dt>
+
+                        <dd>
+                            
+                            <h3><span class="semi-bold">@Model.NgayLap.Value.ToShortDateString()</span></h3>
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TongThanhTien)
+                        </dt>
+
+                        <dd>
+
+                            <h3><span class="semi-bold">@Model.TongThanhTien.GetValueOrDefault(0).ToString("N0") vnđ</span></h3>
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TinhTrang.TenTinhTrang)
+                        </dt>
+
+                        <dd>
+
+                            <h3><span class="semi-bold">@Html.DisplayFor(model => model.TinhTrang.TenTinhTrang)</span></h3>
+                        </dd>
+
+                        <dt>
+
+                            Khách hàng
+                        </dt>
+
+                        <dd>
+
+                            <h3><span class="semi-bold">@Html.DisplayFor(model => model.AspNetUser.UserName)</span></h3>
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GhiChu)
+                        </dt>
+
+                        <dd>
+                            <h3><span class="semi-bold">@Html.DisplayFor(model => model.GhiChu)</span></h3>
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="grid simple horizontal red">
+        <div class="grid-title ">
+            <h4>bảng</h4>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="grid-body">
+            <div>
+                <h3>thông tin<span class="semi-bold"> chi tiết</span></h3>
+                <div class="color-bands green"></div>
+                <div class="color-bands purple"></div>
+                <div class="color-bands red"></div>
+                <div class="color-bands blue"></div>
+                <table class="table table-hover no-more-tables">
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá bán</th>
+                    </tr>
+                    @foreach (var item in Model.ChiTietDonDatHangs)
+                    {
+                        <tr>
+                            <td>@item.SanPham.TenSanPham</td>
+                            <td>@item.SoLuong.Value</td>
+                            <td>@item.GiaBan.GetValueOrDefault(0).ToString("N0") vnđ</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td><b>Tổng tiền =</b></td>
+                        <td>@Model.TongThanhTien.GetValueOrDefault(0).ToString("N0") vnđ</td>
+                        <td width="0" hidden></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

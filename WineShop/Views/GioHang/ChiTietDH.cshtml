@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WineShop.Models.ChiTietDonDatHang>
+
+@{
+    ViewBag.Title = "Chi tiết đơn đặt hàng";
+    int? total = 0;
+}
+
+<div class="columns-container">
+    <div class="container" id="columns">
+        <div class="page-content page-order">
+            <div class="heading-counter warning">
+                Chi tiết đơn hàng:
+            </div>
+            <div class="order-detail-content">
+                <table class="table table-bordered table-responsive cart_summary">
+                    <thead>
+                        <tr>
+                            <th class="cart_product">Hình ảnh</th>
+                            <th>Tên</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            total = item.SanPham.GiaSanPham * item.SoLuong;
+                            <tr>
+                                <td class="cart_product">
+                                    @foreach (var h in item.SanPham.HinhAnhs)
+                                    {
+                                        <img src="~/Images/@h.TenHinh" />
+                                        break;
+                                    }
+                                </td>
+                                <td class="cart_description">
+                                    <p class="product-name">@item.SanPham.TenSanPham</p>
+                                </td>
+                                <td class="qty">
+                                    <p>@item.SoLuong</p>
+                                </td>
+                                <td class="price">
+                                    <span>@total.GetValueOrDefault(0).ToString("N0") VNĐ</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

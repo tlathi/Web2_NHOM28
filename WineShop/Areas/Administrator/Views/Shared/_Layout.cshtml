@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <title>@ViewBag.Title - Trang quản trị</title>
+    @Styles.Render("~/Administrator/Content/css")
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="">
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse ">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="navbar-inner">
+            <div class="header-seperation">
+                <ul class="nav pull-left notifcation-center visible-xs visible-sm">
+                    <li class="dropdown">
+                        <a href="#main-menu" data-webarch="toggle-left-side">
+                            <i class="material-icons">menu</i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- BEGIN LOGO -->
+
+            </div>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <div class="header-quick-nav">
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="pull-left">
+                    <ul class="nav quick-section">
+                        <li class="quicklinks">
+                            <a href="#" class="" id="layout-condensed-toggle">
+                                <i class="material-icons">menu</i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav quick-section">
+                        <li class="quicklinks  m-r-5">
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("SanPham"))
+                            {
+                                <a href="@Url.Action("Index", "SanPham", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("HangSanXuat"))
+                            {
+                                <a href="@Url.Action("Index", "HangSanXuat", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("LoaiSanPham"))
+                            {
+                                <a href="@Url.Action("Index", "LoaiSanPham", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("DonDatHang"))
+                            {
+                                <a href="@Url.Action("Index", "DonDatHang", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("BieuDo"))
+                            {
+                                <a href="@Url.Action("Index", "BieuDo", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString().Equals("KhachHang") && Session["DangNhapAdmin"] != null && Session["DangNhapAdmin"].ToString().Equals("boss"))
+                            {
+                                <a href="@Url.Action("Index", "KhachHang", null)" class="">
+                                    <i class="material-icons">refresh</i>
+                                </a>
+                            }
+
+                        </li>
+
+                        <li class="m-r-5 input-prepend inside search-form no-boarder">
+                            @if (Session["a"] != null && Session["a"].ToString() == "SanPham")
+                            {
+                                using (Html.BeginForm("Index", "SanPham", FormMethod.Get, new { @class = "no-boarder" }))
+                                {
+                                    <span class="add-on"> <i class="material-icons">search</i></span>
+                                    <input name="TimSanPham" type="text" class="no-boarder" placeholder="Tìm kiếm" style="width:250px;">
+                                }
+                            }
+
+                            @if (Session["a"] != null && Session["a"].ToString() == "HangSanXuat")
+                            {
+                                using (Html.BeginForm("Index", "HangSanXuat", FormMethod.Get, new { @class = "no-boarder" }))
+                                {
+                                    <span class="add-on"> <i class="material-icons">search</i></span>
+                                    <input name="TimHangSanXuat" type="text" class="no-boarder " placeholder="Tìm kiếm" style="width:250px;">
+                                }
+                            }
+
+                            @if (Session["a"] != null && Session["a"].ToString() == "LoaiSanPham")
+                            {
+                                using (Html.BeginForm("Index", "LoaiSanPham", FormMethod.Get))
+                                {
+                                    <span class="add-on"> <i class="material-icons">search</i></span>
+                                    <input name="TimLoaiSanPham" type="text" class="no-boarder " placeholder="Tìm kiếm" style="width:250px;">
+                                }
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString() == "DonDatHang")
+                            {
+                                using (Html.BeginForm("Index", "DonDatHang", FormMethod.Get))
+                                {
+                                    <span class="add-on"> <i class="material-icons">search</i></span>
+                                    <input name="TimDonDatHang" type="text" class="no-boarder " placeholder="Tìm kiếm" style="width:250px;">
+                                }
+                            }
+                            @if (Session["a"] != null && Session["a"].ToString() == "KhachHang" && Session["DangNhapAdmin"] != null && Session["DangNhapAdmin"].ToString().Equals("boss"))
+                            {
+                                using (Html.BeginForm("Index", "KhachHang", FormMethod.Get))
+                                {
+                                    <span class="add-on"> <i class="material-icons">search</i></span>
+                                    <input name="TimKhachHang" type="text" class="no-boarder " placeholder="Tìm kiếm" style="width:250px;">
+                                }
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- END TOP NAVIGATION MENU -->
+                <!-- BEGIN CHAT TOGGLER -->
+                <div class="pull-right">
+
+                    <ul class="nav quick-section ">
+                        <li class="quicklinks">
+                            <a data-toggle="dropdown" class="dropdown-toggle  pull-right " href="#" id="user-options">
+                                <i class="material-icons">tune</i>
+                            </a>
+                            <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+                                @if (Session["a"] != null && Session["a"].ToString() == "KhachHang" && Session["DangNhapAdmin"] != null && Session["DangNhapAdmin"].ToString().Equals("boss"))
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "DoiMatKhau")"> Tài khoản của tôi</a>
+                                    </li>
+                                }
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="@Url.Action("Thoat", "DangNhap")"><i class="material-icons">power_settings_new</i>&nbsp;&nbsp;Thoát</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="quicklinks"> <span class="h-seperate"></span></li>
+
+                    </ul>
+                </div>
+                <!-- END CHAT TOGGLER -->
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
+    </div>
+    <!-- END HEADER -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar " id="main-menu">
+            <!-- BEGIN MINI-PROFILE -->
+            <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+                <!-- END MINI-PROFILE -->
+                <!-- BEGIN SIDEBAR MENU -->
+                <p class="menu-title sm">Quản lý <span class="pull-right"><a href="javascript:;"><i class="material-icons"></i></a></span></p>
+                <ul>
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "SanPham", null)">
+                            <i class="material-icons">panorama_horizontal</i> <span class="title">SẢN PHẨM</span>
+                        </a>
+                    </li>
+
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "LoaiSanPham", null)">
+                            <i class="material-icons">more_horiz</i> <span class="title">LOẠI SẢN PHẨM</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "HangSanXuat", null)">
+                            <i class="fa fa-puzzle-piece"></i> <span class="title">HÃNG SẢN XUẤT</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "DonDatHang", null)">
+                            <i class="fa fa-shopping-cart"></i> <span class="title">ĐƠN ĐẶT HÀNG</span>
+                        </a>
+                    </li>
+                    @if (Session["DangNhapAdmin"] != null && Session["DangNhapAdmin"].ToString().Equals("boss"))
+                    {
+                        <li class="">
+                            <a href="@Url.Action("Index", "KhachHang", null)">
+                                <i class="fa fa-user"></i> <span class="title">KHÁCH HÀNG</span>
+                            </a>
+                        </li>
+                    }
+
+                    <li class="hidden-lg hidden-md hidden-xs" id="more-widgets">
+                        <a href="javascript:;"> <i class="material-icons"></i></a>
+                        <ul class="sub-menu">
+                            <li class="side-bar-widgets">
+                                <p class="menu-title sm">Thống kê</p>
+                                <ul class="folders">
+                                    <li>
+                                        <a href="@Url.Action("Index", "BieuDo", null)">
+                                            <div class="status-icon green"></div>
+                                            Lược xem/bán
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="status-icon green"></div>
+                                            Khách hàng thân thiết
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="side-bar-widgets">
+                    <p class="menu-title sm">Thống kê </p>
+                    <ul class="folders">
+                        <li>
+                            <a href="@Url.Action("SanPham", "BieuDo", null)">
+                                <div class="status-icon red"></div>
+                                Sản phẩm
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LoaiSanPham", "BieuDo", null)">
+                                <div class="status-icon green"></div>
+                                Loại sản phẩm
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("HSX", "BieuDo", null)">
+                                <div class="status-icon yellow"></div>
+                                Hãng sản xuất
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Thang", "BieuDo", null)">
+                                <div class="status-icon blue"></div>
+                                Tháng
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+        <div class="footer-widget">
+            <i>Thoát</i>
+            <div class="pull-right">
+                <a href="@Url.Action("Thoat", "DangNhap")"><i class="material-icons">power_settings_new</i></a>
+            </div>
+        </div>
+
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="page-content">
+
+            <div class="content">
+                <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                @RenderBody()
+                <!-- END PLACE PAGE CONTENT HERE -->
+            </div>
+        </div>
+        <!-- END PAGE CONTAINER -->
+    </div>
+    <!-- END CONTENT -->
+    @Scripts.Render("~/Administrator/Content/Scripts")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<noembed />

@@ -1,0 +1,71 @@
+﻿<div id="main-header">
+    <div class="container main-header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-lg-3 logo">
+                <a href="@Url.Action("Index","Home")"><img alt="Kute Shop" src="~/assets/data/option4/Logo.png" /></a>
+            </div>
+            <div class="col-sm-10 col-md-7 col-lg-9 main-menu-wapper">
+                <div id="main-menu" class="main-menu">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div id='cssmenu'>
+                                <ul>
+                                    <li>
+                                        @Html.ActionLink("Trang chủ", "Index", "Home")
+                                    </li>
+                                    <li class='active has-sub'>
+                                        <a href='#'><span>Loại Rượu</span></a>
+                                        <ul>
+                                            <li class='has-sub'>
+                                                <a href="#">
+                                                    @{ Html.RenderAction("MenuLoai", "SanPhams");}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class='active has-sub'>
+                                        <a href='#'><span>Hãng Rượu</span></a>
+                                        <ul>
+                                            <li class='has-sub'>
+                                                <a href="#">
+                                                    @{ Html.RenderAction("MenuHang", "SanPhams");}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class='active has-sub'>
+                                        @Html.ActionLink("Thông tin", "HienThiThongTin", "Home")
+                                    </li>
+                                    <li class='active has-sub'>
+                                        @Html.ActionLink("Liên hệ", "HienThiLienHe", "Home")
+                                    </li>
+                                    <li class="active has-sub">
+                                        @if (Session["a"] != null && Session["a"].ToString() == "GioHang")
+                                        {
+                                        <li class="current">
+                                            @if (Session["DangNhap"] != null)
+                                            {
+                                                <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+                                            }
+                                        </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                @if (Session["DangNhap"] != null)
+                                                {
+                                                    <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+                                                }
+                                            </li>
+                                        }
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

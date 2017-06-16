@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WineShop.Models.DonDatHang>
+
+<div class="columns-container">
+    <div class="container" id="columns">
+        <div class="page-content page-order">
+            <div class="heading-counter warning">
+                Lịch sử mua hàng:
+            </div>
+            <div class="order-detail-content">
+                <table class="table table-bordered table-responsive cart_summary">
+                    <thead>
+                        <tr>
+                            <th class="cart_product">Mã đơn hàng</th>
+                            <th>Ngày lập</th>
+                            <th>Tổng tiền</th>
+                            <th>Tình Trạng</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <span>@item.MaDonDatHang</span>
+                                </td>
+                                <td class="cart_description">
+                                    <p class="product-name">@item.NgayLap</p>
+                                </td>
+                                <td class="price"><span>@item.TongThanhTien.GetValueOrDefault(0).ToString("N0")</span></td>
+                                @if (item.MaTinhTrang == 1)
+                                {
+                                    <td>
+                                        <a style="text-decoration:none;" href="@Url.Action("HuyDonHang", "GioHang", new { maddh = @item.MaDonDatHang })">Hủy</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.TinhTrang.TenTinhTrang
+                                    </td>
+                                }
+                                <td>
+                                        <a style="text-decoration:none;" href="@Url.Action("ChiTietDH", "GioHang", new { maddh = @item.MaDonDatHang })">Chi tiết đơn đặt hàng</a>
+                                    </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

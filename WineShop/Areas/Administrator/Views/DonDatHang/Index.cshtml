@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<WineShop.Models.DonDatHang>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Danh sách đơn đặt hàng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>ĐƠN ĐẶT HÀNG</h1></center>
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div style="background-color:white">
+    <table class="table table-hover no-more-tables">
+        <tr>
+            <th>
+                <center>Mã đơn</center>
+            </th>
+            <th>
+                <center>@Html.ActionLink("Ngày lập", "Index", new { sortOrder = ViewBag.NgayLaps })</center>
+            </th>
+            <th>
+                <center>Tổng tiền</center>
+            </th>
+            <th>
+                <center>Tình trạng</center>
+            </th>
+            <th>
+                <center>Khách hàng</center>
+            </th>
+            <th>
+                <center>Ghi chú</center>
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="150">
+                    <h4>
+                        <a href="@Url.Action("ChiTiet", "DonDatHang", new { id = item.MaDonDatHang})">
+                            @Html.DisplayFor(modelItem => item.MaDonDatHang)
+                        </a>
+                    </h4>
+                </td>
+                <td width="100">
+                    <h4>@item.NgayLap.Value.ToShortDateString()</h4>
+                </td>
+                <td width="150">
+                    <h4>@item.TongThanhTien.GetValueOrDefault(0).ToString("N0") vnđ</h4>
+                </td>
+                <td width="200">
+                    <h4>@Html.DisplayFor(modelItem => item.TinhTrang.TenTinhTrang)</h4>
+                </td>
+                <td width="250">
+                    <h4>@Html.DisplayFor(modelItem => item.AspNetUser.UserName)</h4>
+                </td>
+                <td>
+                    <h4>@Html.DisplayFor(modelItem => item.GhiChu)</h4>
+                </td>
+                <td width="100">
+
+                    <a class="remove" href="@Url.Action("CapNhat", "DonDatHang", new { id = item.MaDonDatHang})">
+                        <h1><i class="fa fa-retweet"></i></h1>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

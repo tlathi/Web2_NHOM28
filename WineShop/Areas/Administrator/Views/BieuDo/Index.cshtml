@@ -1,0 +1,48 @@
+﻿@using WineShop.Models
+@{
+    ViewBag.Title = "Biểu đồ";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+    string tenaction = ViewBag.TenAction;
+}
+
+<div>
+    <div class="page-title">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3>@ViewBag.titles</h3>
+        <div class="pull-right actions">
+           
+                @using (Html.BeginForm(tenaction, "BieuDo"))
+            {
+                    <select name="nam" id="namList" style="width:80px;">
+                        @foreach (var i in ViewBag.NamLists)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <button type="submit">
+                        <img src="~/Areas/Administrator/Content/assets/img/statistics.png" width="25" height="25" style="border:none;" />
+                    </button>
+                }
+   
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div style="background-color:white;">
+    <center>
+        <table>
+            <tr>
+                <td>
+                    <div style="background-color:white;" class="horizontal">
+                        <center>
+
+                            <img src="@Url.Content("~/Images/charts/" + ViewBag.imagePath)" />
+                        </center>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </center>
+</div>

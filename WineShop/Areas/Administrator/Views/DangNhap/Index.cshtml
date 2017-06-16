@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN PLUGIN CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @Styles.Render("~/Administrator/Content/css")
+
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="error-body no-top">
+    <div class="container">
+        <div class="lockscreen-wrapper animated  flipInX">
+            <div class=" ">
+                <div class="col-md-8 col-md-offset-4 col-sm-6 col-sm-offset-4 col-xs-offset-2">
+                    <div class="profile-wrapper">
+                        <img src="~/Areas/Administrator/Content/webarch/img/chicken.png" width="69" height="69" />
+                    </div>
+                    @using (Html.BeginForm("Index", "DangNhap"))
+                    {
+                        <h2 class="user">Quản <span class="semi-bold">Trị</span></h2>
+
+                        <input type="text" placeholder="Tên đăng nhập" name="username">
+                        <input type="password" placeholder="Mật khẩu" name="password">
+                        <button type="submit" class="btn btn-primary "><i class="fa fa-unlock"></i></button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- END CORE TEMPLATE JS -->
+    @Scripts.Render("~/Administrator/Content/Scripts")
+</body>
+</html>
+<noembed />

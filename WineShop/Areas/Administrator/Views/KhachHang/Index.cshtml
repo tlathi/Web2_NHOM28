@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<WineShop.Models.AspNetUser>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Danh sách khách hàng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>TÀI KHOẢN</h1></center>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div style="background-color:white;">
+    <table class="table table-hover no-more-tables">
+        <tr>
+            <th>
+                Tên đăng nhập
+            </th>
+            <th>
+                Quyền hiện tại
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+                //if (role.Id.Equals("1"))
+                //{
+                    <tr>
+                        <td>
+                            <h4 style="margin-left:100px">@Html.DisplayFor(modelItem => item.UserName)</h4>
+                        </td>
+                        <td>
+                            @item.AspNetRoles.Single().Name
+                        </td>
+                        <td>
+                                <a class="remove" href="@Url.Action("CapNhat", "KhachHang", new { id = item.Id})">
+                                    <h1><i class="fa fa-retweet"></i></h1>
+                                </a>
+                        </td>
+                        <td>
+                            @if (item.LockoutEnabled == true)
+                            {
+                                    <a class="remove" href="@Url.Action("Xoa", "KhachHang", new { id = item.Id})">
+                                        <h1><i class="fa fa-times"></i></h1>
+                                    </a>
+                            }
+                        </td>
+                    </tr>
+                //}
+        }
+
+    </table>
+</div>

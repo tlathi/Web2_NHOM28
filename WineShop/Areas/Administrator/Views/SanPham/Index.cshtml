@@ -1,0 +1,151 @@
+﻿@model PagedList.IPagedList<WineShop.Models.SanPham>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<center> <h2>DANH SÁCH RƯỢU</h2></center>
+
+
+<div class="">
+    <div class="page-title">
+        <i class="">
+            <img src="~/Areas/Administrator/Content/assets/img/wine.png" width="100" />
+        </i>
+        <h3>Rượu</h3>
+        <div class="pull-right actions">
+            <button class="btn btn-primary btn-cons" type="button" id="btn-new-ticket">@Html.ActionLink("Thêm mới", "ThemMoi")</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<br />
+<a href="@Url.Action("BaoCaoSanPham", "SanPham")">
+    Xuất báo cáo: <img src="~/Areas/Administrator/Content/assets/img/baocao.png" width="50" height="60" />
+</a>
+
+<br/>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div style="background-color:white">
+    <table class="table table-hover no-more-tables">
+        <tr>
+
+            <th>
+                <center>
+                    @Html.ActionLink("Tên rượu", "Index", new { sortOrder = ViewBag.TenSanPhams })
+                </center>
+            </th>
+            <th>
+                <center>
+                    Hình
+                </center>
+            </th>
+            <th>
+                <center>Giá</center>
+            </th>
+            <th>
+                <center>Ngày nhập</center>
+            </th>
+            <th>
+                <center>Kho</center>
+            </th>
+            <th>
+                <center>@Html.ActionLink("Số lượng bán", "Index", new { sortOrder = ViewBag.SoLuongBans })</center>
+            </th>
+            <th>
+                <center>@Html.ActionLink("Lược xem", "Index", new { sortOrder = ViewBag.SoLuocXems })</center>
+            </th>
+            <th>
+                <center>Mô tả</center>
+            </th>
+            <th>
+                <center>Loại sản phẩm</center>
+            </th>
+            <th>
+                <center>Nhà sản xuất</center>
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <h4>
+                        <a href="@Url.Action("ChiTiet", "SanPham", new { id = item.MaSanPham})">
+                            @Html.DisplayFor(modelItem => item.TenSanPham)
+                        </a>
+                    </h4>
+                </td>
+                <td>
+                    <center>
+                        @foreach (var image in item.HinhAnhs)
+                            {
+                                if (image.BiXoa == false)
+                                {
+                            <img src="@Url.Content("~/Images/" + image.TenHinh)" alt="@image.TenHinh" width="30" height="30" />
+                                }
+                            }
+                    </center>
+                </td>
+                <td>
+                    <h4>
+                        @item.GiaSanPham.GetValueOrDefault(0).ToString("N0")
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.NgayNhap)
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.SoLuongTon)
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.SoLuongBan)
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.SoLuocXem)
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </h4>
+                </td>
+
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.LoaiSanPham.TenLoaiSanPham)
+                    </h4>
+                </td>
+                <td>
+                    <h4>
+                        @Html.DisplayFor(modelItem => item.HangSanXuat.TenHangSanXuat)
+                    </h4>
+                </td>
+                <td>
+                    <a class="remove" href="@Url.Action("CapNhat", "SanPham", new { id = item.MaSanPham})">
+                        <h1><i class="fa fa-retweet"></i></h1>
+                    </a>
+                </td>
+                <td>
+
+                    <a class="remove" href="@Url.Action("Xoa", "SanPham", new { id = item.MaSanPham})">
+                        <h1><i class="fa fa-times"></i></h1>
+                    </a>
+                </td>
+            </tr>
+            }
+    </table>
+</div>
+

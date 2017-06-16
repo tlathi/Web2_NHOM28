@@ -1,0 +1,109 @@
+﻿@model WineShop.Models.HangSanXuat
+
+@{
+    ViewBag.Title = "Cập nhật hãng sản xuất";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <ul class="breadcrumb">
+        <li>
+            <p>HÃNG SẢN XUẤT</p>
+        </li>
+        <li>
+            <b>CẬP NHẬT</b>
+        </li>
+    </ul>
+    <div class="page-title">
+        <a href="@Url.Action("Index", "HangSanXuat")"><i class="icon-custom-left"></i></a>
+        <h3>Trở về <span class="semi-bold">Danh sách</span></h3>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="grid simple vertical green">
+        <div class="grid-title no-border">
+            <h4>Hãng <span class="semi-bold">Sản Xuất</span></h4>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="grid-body no-border">
+            <div class="row-fluid">
+                <div>
+                    <div class="color-bands green"></div>
+                    <div class="color-bands purple"></div>
+                    <div class="color-bands red"></div>
+                    <div class="color-bands blue"></div>
+                    <br>
+                    <div>
+                        @using (Html.BeginForm("CapNhat", "HangSanXuat", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                @Html.HiddenFor(model => model.MaHangSanXuat)
+
+                                <div class="form-group">
+                                    <div class="control-label col-md-5">Tên hãng sản xuất</div>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.TenHangSanXuat, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TenHangSanXuat, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="control-label col-md-5">
+                                        Thay đổi ảnh
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="file" name="upload" id="upload" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Cập nhật" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="grid simple horizontal red">
+        <div class="grid-title ">
+            <h4>Logo hiện tại</h4>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="grid-body">
+            <div>
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        
+                    </div>
+                    <div class="col-md-10">
+                        <img src="@Url.Content("~/Images/Logo/" + Model.LogoURL)" width="500" height="500" />
+                        @Html.ValidationMessageFor(model => model.LogoURL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

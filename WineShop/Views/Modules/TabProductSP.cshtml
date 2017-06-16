@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WineShop.Models.SanPham>
+
+<ul class="products-style8 row">
+    @foreach (var item in Model)
+    {
+        <li class="product col-sm-6 col-md-3">
+            <div class="product-container">
+                <div class="product-thumb">
+                    <a style="text-decoration:none;" href="@Url.Action("HienThiChiTietSanPham","SanPhams", new { id = item.MaSanPham})">
+                        @foreach (var h in item.HinhAnhs)
+                        {
+                            <img src="~/Images/@h.TenHinh" width="200" height="380" />
+                            break;
+                        }
+                    </a>
+                    <span class="quick-view">Xem chi tiết</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">
+                        <a style="text-decoration:none;" href="@Url.Action("HienThiChiTietSanPham","SanPhams", new { id = item.MaSanPham})">@item.TenSanPham</a>
+                    </div>
+                    <div class="box-price">
+                        <span class="price">@item.GiaSanPham.GetValueOrDefault(0).ToString("N0") vnđ</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

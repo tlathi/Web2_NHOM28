@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<WineShop.Models.HangSanXuat>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Danh sách hãng sản xuất";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<center><h2>NHÀ SẢN XUẤT</h2></center>
+
+<div class="">
+    <div class="page-title">
+        <i class="icon-custom-new"></i>
+        <h3>Danh <span class="semi-bold" >sách</span> </h3>
+        <div class="pull-right actions">
+            <button class="btn btn-primary btn-cons" type="button" id="btn-new-ticket">@Html.ActionLink("Thêm mới", "ThemMoi")</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<br />
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div style="background-color:white">
+    <table class="table table-hover no-more-tables">
+        <tr>
+            @*<th>
+                Mã
+            </th>*@
+            <th>
+                @Html.ActionLink("Hãng sản xuất", "Index", new { sortOrder = ViewBag.TenHangSanXuats })
+            </th>
+            <th>
+                Logo
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h4 style="margin-left:80px">@Html.DisplayFor(modelItem => item.TenHangSanXuat)</h4>
+                </td>
+                <td>
+                    <img src="@Url.Content("~/Images/Logo/" + item.LogoURL)" alt="@item.LogoURL" width="60" height="60" />
+                </td>
+                <td width="50">
+
+                    <a class="remove" href="@Url.Action("CapNhat", "HangSanXuat", new { id = item.MaHangSanXuat})">
+                        <h1><i class="fa fa-retweet"></i></h1>
+                    </a>
+                </td>
+                <td>
+                    <a class="remove" href="@Url.Action("Xoa", "HangSanXuat", new { id = item.MaHangSanXuat})">
+                        <h1><i class="fa fa-times"></i></h1>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
